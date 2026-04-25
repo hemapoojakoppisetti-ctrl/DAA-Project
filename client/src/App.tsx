@@ -5,8 +5,8 @@ import { AuthProvider, useAuth } from "./context/AuthContext";
 
 /* ================= PUBLIC ================= */
 
-import PublicLayout from "../components/public/PublicLayout.tsx";
-import HomePage from "./pages/public/HomePage";
+import PublicLayout from "./components/public/PublicLayout.tsx";
+import HomePage from "./pages/public/HomePage.tsx";
 import AboutPage from "./pages/public/AboutPage";
 import InstitutionsPage from "./pages/public/InstitutionsPage";
 import DepartmentsPage from "./pages/public/DepartmentsPage";
