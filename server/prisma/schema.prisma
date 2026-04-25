@@ -1,0 +1,224 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  role      String   @default("admin")
+  avatar    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("admins")
+}
+
+model Institution {
+  id          Int          @id @default(autoincrement())
+  name        String
+  code        String       @unique
+  address     String
+  city        String
+  state       String
+  phone       String?
+  email       String?
+  website     String?
+  principal   String?
+  established Int?
+  type        String       @default("Engineering")
+  accreditation String?
+  logo        String?
+  isActive    Boolean      @default(true)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  departments Department[]
+
+  @@map("institutions")
+}
+
+model Department {
+  id            Int         @id @default(autoincrement())
+  name          String
+  code          String
+  description   String?
+  hod           String?
+  hodEmail      String?
+  phone         String?
+  established   Int?
+  institutionId Int
+  institution   Institution @relation(fields: [institutionId], references: [id])
+  faculty       Faculty[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  @@map("departments")
+}
+
+model Faculty {
+  id             Int        @id @default(autoincrement())
+  name           String
+  designation    String
+  qualification  String?
+  experience     Int?
+  email          String?
+  phone          String?
+  specialization String?
+  photo          String?
+  departmentId   Int
+  department     Department @relation(fields: [departmentId], references: [id])
+  isHOD          Boolean    @default(false)
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  @@map("faculty")
+}
+
+model AcademicCalendar {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?
+  startDate   DateTime
+  endDate     DateTime?
+  category    String   @default("general")
+  isImportant Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("academic_calendar")
+}
+
+model ExamTimetable {
+  id          Int      @id @default(autoincrement())
+  course      String
+  semester    String
+  subject     String
+  subjectCode String?
+  examDate    DateTime
+  examTime    String?
+  venue       String?
+  duration    String?
+  pdfFile     String?
+  academicYear String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("exam_timetable")
+}
+
+model Notification {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?
+  category    String   @default("general")
+  attachment  String?
+  isUrgent    Boolean  @default(false)
+  isActive    Boolean  @default(true)
+  publishedAt DateTime @default(now())
+  expiresAt   DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("notifications")
+}
+
+model Download {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?
+  fileName    String
+  filePath    String
+  fileSize    String?
+  fileType    String?
+  category    String   @default("general")
+  downloads   Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("downloads")
+}
+
+model Report {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?
+  type        String   @default("audit")
+  year        String?
+  fileName    String?
+  filePath    String?
+  isPublic    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("reports")
+}
+
+model FeesStructure {
+  id          Int      @id @default(autoincrement())
+  course      String
+  category    String?
+  tuitionFee  Float?
+  examFee     Float?
+  labFee      Float?
+  otherFee    Float?
+  totalFee    Float?
+  academicYear String?
+  pdfFile     String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("fees_structure")
+}
+
+model Service {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  url         String?
+  icon        String?
+  category    String   @default("student")
+  isActive    Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("services")
+}
+
+model AuditMetric {
+  id          Int      @id @default(autoincrement())
+  name        String
+  value       Float
+  target      Float?
+  unit        String?
+  category    String   @default("quality")
+  year        String?
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("audit_metrics")
+}
+
+model ContactMessage {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  phone     String?
+  subject   String
+  message   String
+  isRead    Boolean  @default(false)
+  replied   Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@map("contact_messages")
+}

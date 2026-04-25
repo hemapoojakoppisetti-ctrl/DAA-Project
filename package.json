@@ -1,0 +1,19 @@
+{
+  "name": "daa-dynamic-academic-audits",
+  "version": "1.0.0",
+  "description": "Dynamic Academic Audits System — JNTUK",
+  "scripts": {
+    "install:all": "npm install --prefix server && npm install --prefix client",
+    "setup:db": "npm run --prefix server db:generate && npm run --prefix server db:push && npm run --prefix server db:seed",
+    "dev:server": "npm run --prefix server dev",
+    "dev:client": "npm run --prefix client start",
+    "build:client": "npm run --prefix client build",
+    "start:server": "npm run --prefix server start"
+  },
+  "private": true,
+  "devDependencies": {
+    "nodemon": "^3.1.14",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.2"
+  }
+}

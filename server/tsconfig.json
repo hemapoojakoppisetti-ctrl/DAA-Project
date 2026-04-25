@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "rootDir": "./",
+    "outDir": "./dist",
+    "esModuleInterop": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "types": ["node", "express"],
+    "resolveJsonModule": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "moduleResolution": "node"
+  }
+}
