@@ -51,7 +51,7 @@ app.use('/api/auth/login', authLimiter);
 // ✅ CORS
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:3000',
+    origin: https://daa-project-seven.vercel.app',
     credentials: true,
   })
 );
